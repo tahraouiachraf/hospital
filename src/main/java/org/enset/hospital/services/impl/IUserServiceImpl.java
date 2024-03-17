@@ -3,13 +3,16 @@ package org.enset.hospital.services.impl;
 import jakarta.transaction.Transactional;
 import org.enset.hospital.dto.request.UserRequestDTO;
 import org.enset.hospital.dto.response.UserResponseDTO;
+import org.enset.hospital.entites.Role;
 import org.enset.hospital.entites.User;
+import org.enset.hospital.repositories.RoleRepository;
 import org.enset.hospital.repositories.UserRepository;
 import org.enset.hospital.services.facade.IUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +21,8 @@ import java.util.stream.Collectors;
 public class IUserServiceImpl implements IUserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -45,8 +50,9 @@ public class IUserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserResponseDTO getUserByNom(String nom) {
-        return null;
+    public UserResponseDTO getUserByNom(String username) {
+        User user = userRepository.findByUsername(username);
+        return modelMapper.map(user,UserResponseDTO.class);
     }
 
     @Override

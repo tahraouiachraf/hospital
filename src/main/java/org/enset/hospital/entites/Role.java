@@ -21,7 +21,7 @@ public class Role {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "role_name")
+    @Column(name = "role_name",length = 20,unique = true)
     private String roleName;
 
     @ManyToMany(fetch = FetchType.EAGER)

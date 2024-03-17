@@ -3,6 +3,7 @@ package org.enset.hospital.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.enset.hospital.dto.request.RoleRequestDTO;
 import org.enset.hospital.dto.request.UserRequestDTO;
 
 import java.util.List;
@@ -11,5 +12,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleResponseDTO {
-    private List<UserRequestDTO> content;
+    private List<RoleRequestDTO> content;
 }

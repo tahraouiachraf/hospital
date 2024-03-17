@@ -1,7 +1,5 @@
 package org.enset.hospital.dto.request;
 
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
