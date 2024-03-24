@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,9 +24,6 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">À propos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
@@ -57,41 +54,53 @@
 <div class="container mt-5">
     <h1>Bienvenue sur notre site!</h1>
     <p>Ceci est une page simple avec une barre de navigation Bootstrap et une partie pour un utilisateur connecté.</p>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Nom</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>
-                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Supprimer</button>
-                <button type="button" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</button>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Jane Smith</td>
-            <td>
-                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Supprimer</button>
-                <button type="button" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</button>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Michael Johnson</td>
-            <td>
-                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Supprimer</button>
-                <button type="button" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="input-group mb-3">
+        <form method="get" th:action="@{index}">
+            <label>keyword:</label>
+            <input type="text" name="keyword" th:value="${keyword}">
+            <button type="submit" class="btn btn-info">Chercher</button>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Date Naissance</th>
+                <th>Malade</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${listPatients}">
+                <td th:text="${p.id}"></td>
+                <td th:text="${p.nom}"></td>
+                <td th:text="${#dates.format(p.dateNaissance, 'dd-MM-yyyy')}"></td>
+                <td th:text="${p.malade ? 'Oui' : 'Non'}"></td>
+                <td>
+                    <a th:href="@{'/edit/' + ${p.id}}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-edit"></i> Modifier
+                    </a>
+
+                    <a th:href="@{'/delete/' + ${p.id}}" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i> Supprimer
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <ul class="nav nav-pills">
+        <li th:each="page,item:${pages}">
+            <a th:href="@{/index(page=${item.index},keyword=${keyword})}"
+               th:class="${currentPage==item.index?'btn btn-info ms-1':'btn btn-outline-info ms-1'}"
+               class="btn btn-outline-info" th:text="${item.index}"></a>
+        </li>
+    </ul>
 </div>
 
 <!-- Bootstrap JS -->

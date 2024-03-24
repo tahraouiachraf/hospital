@@ -22,4 +22,10 @@ public class Patient {
     private boolean malade;
     @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY)
     private Collection<RendezVous> rendezVous;
+
+    public Patient(String nom, Date dateNaissance, boolean malade) {
+        this.nom = nom;
+        this.dateNaissance = dateNaissance;
+        this.malade = malade;
+    }
 }

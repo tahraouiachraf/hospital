@@ -55,7 +55,6 @@ public class IRoleServiceImpl implements IRoleService {
         Role roleUpdated = roleRepository.findById(id).orElse(null);
 
         roleUpdated.setRoleName(role.getRoleName());
-        roleUpdated.setDescription(role.getDescription());
 
         Role savedRole = roleRepository.save(roleUpdated);
         return modelMapper.map(savedRole, RoleRequestDTO.class);
