@@ -23,10 +23,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    <a class="nav-link active" aria-current="page" href="/">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="@{/formPatients}">Patients</a>
+                    <a class="nav-link" href="/formPatients">Nouveau Patient</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -79,7 +79,7 @@
                     <td th:text="${#dates.format(p.dateNaissance, 'dd-MM-yyyy')}"></td>
                     <td th:text="${p.malade ? 'Oui' : 'Non'}"></td>
                     <td>
-                        <a th:href="@{'/edit/' + ${p.id}}" class="btn btn-primary btn-sm">
+                        <a th:href="@{editPatient(id=${p.id},keyword=${keyword}, page=${currentPage})}" class="btn btn-success btn-sm">
                             <i class="fas fa-edit"></i> Edit
                         </a>
 
